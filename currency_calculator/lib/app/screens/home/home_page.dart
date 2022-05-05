@@ -9,6 +9,6 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Get.put(HomeLogicController());
-    return HomePageView();
+    return const HomePageView();
   }
 }

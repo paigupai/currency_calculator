@@ -1,7 +1,12 @@
+import 'dart:ui';
+
+import 'package:currency_calculator/app/services/setting_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:logger/logger.dart';
 
+import 'app/config/constants.dart';
+import 'app/config/messages_config.dart';
 import 'app/config/theme.dart';
 import 'app/screens/main/main_page.dart';
 import 'app/services/hive_db_service.dart';
@@ -16,6 +21,12 @@ Future<void> initServices() async {
 
   ///初始化
   await HiveDBService.initDB();
+  // 取出保存的设定
+  final setting = await SettingService.getSetting();
+  if (setting != null) {
+    Constants.locale = setting.locale!;
+  }
+
   Logger().i('All services started...');
 }
 
@@ -25,10 +36,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Flutter Demo',
       theme: themeData(),
-      // darkTheme: darkThemeData(),
-      // themeMode: ThemeMode.system,
+      darkTheme: themeData(isDark: true),
+      themeMode: ThemeMode.system,
+      translations: Messages(),
+      locale: Constants.locale,
+      fallbackLocale: const Locale('en', 'US'),
+      debugShowCheckedModeBanner: false,
       home: const MainPage(),
     );
   }

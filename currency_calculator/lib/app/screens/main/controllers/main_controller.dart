@@ -10,11 +10,11 @@ class MainLogicController extends GetxController {
   String getTitle() {
     switch (selectedIndex.value) {
       case 0:
-        return '履历';
+        return 'history'.tr;
       case 1:
-        return '主页';
+        return 'home'.tr;
       case 2:
-        return '设定';
+        return 'settings'.tr;
       default:
         return '';
     }

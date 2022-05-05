@@ -12,7 +12,7 @@ import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 
 class HomePageView extends StatefulWidget {
-  HomePageView({Key? key}) : super(key: key);
+  const HomePageView({Key? key}) : super(key: key);
 
   @override
   State<HomePageView> createState() => _HomePageViewState();
@@ -43,17 +43,8 @@ class _HomePageViewState extends State<HomePageView> {
           padding: const EdgeInsets.all(12.0),
           child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 8.0, bottom: 0, top: 8.0),
-                child: Row(
-                  children: [
-                    const Icon(Icons.refresh),
-                    const SizedBox(
-                      width: 12,
-                    ),
-                    Obx(() => Text(homeLogicController.updateTime.value)),
-                  ],
-                ),
+              const SizedBox(
+                height: 20,
               ),
               fromCurrencyDescriptiveText(),
               Padding(
@@ -61,9 +52,11 @@ class _HomePageViewState extends State<HomePageView> {
                 child: Transform.rotate(
                     angle: pi / 2,
                     child: Ink(
-                      decoration: const ShapeDecoration(
-                        color: Colors.white,
-                        shape: CircleBorder(),
+                      decoration: ShapeDecoration(
+                        color: Get.isDarkMode
+                            ? Colors.grey.shade800
+                            : Colors.white,
+                        shape: const CircleBorder(),
                       ),
                       child: IconButton(
                         icon: const Icon(
@@ -77,6 +70,19 @@ class _HomePageViewState extends State<HomePageView> {
                     )),
               ),
               toCurrencyDescriptiveText(),
+              Padding(
+                padding: const EdgeInsets.only(right: 8.0, bottom: 0, top: 8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    const Icon(Icons.refresh),
+                    const SizedBox(
+                      width: 12,
+                    ),
+                    Obx(() => Text(homeLogicController.updateTime.value)),
+                  ],
+                ),
+              ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Align(
@@ -105,41 +111,38 @@ class _HomePageViewState extends State<HomePageView> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Flexible(
-                  flex: 1,
-                  child: Row(
-                    children: [
-                      CountryCodePicker(
-                        onChanged: (country) {
-                          Logger().i('countryCode onChanged ${country.name}');
-                          controller.changeFromCountryCode(country);
-                        },
-                        onInit: (country) {
-                          Logger().i('countryCode onChanged ${country!.name}');
-                          controller.changeFromCountryCode(country,
-                              fetchMoney: false);
-                        },
-                        initialSelection:
-                            controller.fromCountryData.value.initialCountryCode,
-                        flagWidth: 50,
-                        hideMainText: true,
-                        showCountryOnly: true,
-                        showOnlyCountryWhenClosed: true,
-                        favorite: controller.fromCountryData.value
-                                .favoriteCountryCodeList ??
-                            [],
-                        countryFilter:
-                            controller.fromCountryData.value.countryFilter,
-                      ),
-                      const Icon(
-                        Icons.keyboard_arrow_down,
-                        size: 20,
-                      ),
-                    ],
-                  ),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    CountryCodePicker(
+                      onChanged: (country) {
+                        Logger().i('countryCode onChanged ${country.name}');
+                        controller.changeFromCountryCode(country);
+                      },
+                      onInit: (country) {
+                        Logger().i('countryCode onChanged ${country!.name}');
+                        controller.changeFromCountryCode(country,
+                            fetchMoney: false);
+                      },
+                      initialSelection:
+                          controller.fromCountryData.value.initialCountryCode,
+                      flagWidth: 50,
+                      hideMainText: true,
+                      showCountryOnly: true,
+                      showOnlyCountryWhenClosed: true,
+                      favorite: controller
+                              .fromCountryData.value.favoriteCountryCodeList ??
+                          [],
+                      countryFilter:
+                          controller.fromCountryData.value.countryFilter,
+                    ),
+                    const Icon(
+                      Icons.keyboard_arrow_down,
+                      size: 20,
+                    ),
+                  ],
                 ),
-                Flexible(
-                  flex: 2,
+                Card(
                   child: InkWell(
                     onTap: () {
                       _textFocusNode.requestFocus();
@@ -166,16 +169,9 @@ class _HomePageViewState extends State<HomePageView> {
                                     maxDecimalLength: 15, maxIntegerLength: 15),
                               ],
                               onChanged: (text) {
-                                print(text);
+                                Logger().i(text);
                                 controller.fromText.value = text;
                               },
-                              // onSubmitted: (text) {
-                              //   print(text);
-                              //   if (text.isNotEmpty) {
-                              //     controller.fromCountryData.value.money =
-                              //         double.parse(text);
-                              //   }
-                              // },
                             )),
                         const Padding(
                           padding: EdgeInsets.all(4.0),
@@ -183,8 +179,8 @@ class _HomePageViewState extends State<HomePageView> {
                             width: 2,
                             height: 30,
                             child: DecoratedBox(
-                              decoration:
-                                  BoxDecoration(color: kAccentLightColor),
+                              decoration: BoxDecoration(
+                                  color: CustomColor.kAccentLightColor),
                             ),
                           ),
                         ),

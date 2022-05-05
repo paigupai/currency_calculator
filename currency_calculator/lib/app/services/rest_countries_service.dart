@@ -1,3 +1,4 @@
+import 'package:currency_calculator/app/config/constants.dart';
 import 'package:currency_calculator/app/data/rest_country.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
@@ -13,7 +14,7 @@ class RestCountriesService {
     RestCountry restCountry;
     try {
       var dio = Dio();
-      response = await dio.get('https://restcountries.com/v3/alpha/$code');
+      response = await dio.get('${Constants.restcountriesAPI}$code');
 
       Logger().i('response: ${response.data.toString()}');
 

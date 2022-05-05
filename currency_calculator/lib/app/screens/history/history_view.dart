@@ -37,7 +37,7 @@ class HistoryPageView extends StatelessWidget {
             child: Column(
               children: [
                 const SizedBox(
-                  height: 8,
+                  height: 16,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -45,22 +45,30 @@ class HistoryPageView extends StatelessWidget {
                     Image.asset(
                       fromCountryData.onSelectedCountry!.flagUri!,
                       package: 'country_code_picker',
-                      width: 20,
+                      width: 30,
+                    ),
+                    const SizedBox(
+                      width: 8,
                     ),
                     Text(
                         '${fromCountryData.symbol}${fromCountryData.money} = '),
                     Image.asset(
                       toCountryData.onSelectedCountry!.flagUri!,
                       package: 'country_code_picker',
-                      width: 20,
+                      width: 30,
+                    ),
+                    const SizedBox(
+                      width: 8,
                     ),
                     Text('${toCountryData.symbol}${toCountryData.money}'),
                   ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                  child: Text(history.rateText ?? ''),
-                ),
+                history.rateText!.isNotEmpty
+                    ? Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        child: Text(history.rateText ?? ''),
+                      )
+                    : const SizedBox(),
                 Align(
                   alignment: Alignment.bottomRight,
                   child: Text(history.updateTime ?? ''),
@@ -76,25 +84,6 @@ class HistoryPageView extends StatelessWidget {
           );
         },
       ),
-    );
-
-    return ListView.separated(
-      itemBuilder: (BuildContext context, int index) {
-        if (index == (10 - 1)) {
-          return const Divider(
-            height: 1,
-          );
-        }
-        return ListTile(
-          title: Text('履歴'),
-        );
-      },
-      separatorBuilder: (BuildContext context, int index) {
-        return const Divider(
-          height: 1,
-        );
-      },
-      itemCount: 10,
     );
   }
 }

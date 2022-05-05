@@ -5,6 +5,8 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:logger/logger.dart';
 
+import '../config/constants.dart';
+
 class ExchangeRateService {
   /// 取得汇率
   Future<ExchangeRateData?> fetchForeignExchange(
@@ -14,12 +16,11 @@ class ExchangeRateService {
     ExchangeRateData exchangeRateData;
     try {
       var dio = Dio();
-      response = await dio.get('https://api.frankfurter.app/latest',
-          queryParameters: {
-            'amount': amount,
-            'from': fromCurrency,
-            'to': toCurrency
-          });
+      response = await dio.get(Constants.frankfurterAPI, queryParameters: {
+        'amount': amount,
+        'from': fromCurrency,
+        'to': toCurrency
+      });
 
       Logger().i('response: ${response.data.toString()}');
 

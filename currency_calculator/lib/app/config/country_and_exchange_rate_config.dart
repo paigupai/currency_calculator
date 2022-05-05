@@ -75,21 +75,7 @@ class CountryAndCurrencyConfig {
     'US',
     'ZA',
   ];
-  // static Future<List<String>> getCountryCodeList() async {
-  //   final List<String> countryCodeList = [];
-  //
-  //   for (var foreignExchange in currencyExchangeList) {
-  //     List<Country>? result =
-  //         await CountryProvider.getCountryByCurrencyCode(foreignExchange);
-  //     print(foreignExchange);
-  //     print(result.first.alpha2Code);
-  //     print(result.first.name);
-  //     if (result.first.alpha2Code != null) {
-  //       countryCodeList.add(result.first.alpha2Code!);
-  //     }
-  //   }
-  //   return countryCodeList;
-  // }
+
   /// 取得countryCodeList中的CountryCode
   static String? getCountryCodeFromList(String currencyExchange) {
     for (var i = 0; i < currencyCodeList.length; i++) {

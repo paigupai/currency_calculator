@@ -49,13 +49,6 @@ class MainPage extends StatelessWidget {
       ),
       body: SafeArea(
           child: Obx(() => _screen[mainController.selectedIndex.value])),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
-        onPressed: () {
-          Get.snackbar("Snackbar 标题", "欢迎使用Snackbar",
-              icon: const Icon(Icons.error_outline));
-        },
-      ),
     );
   }
 }
