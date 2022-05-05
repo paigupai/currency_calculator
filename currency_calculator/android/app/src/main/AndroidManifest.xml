@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.paigu.currency_calculator">
    <application
-        android:label="currency_calculator"
+        android:label="為替レート計算"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
