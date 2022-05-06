@@ -9,6 +9,7 @@ import 'package:currency_calculator/app/screens/home/controllers/home_controller
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:logger/logger.dart';
 
 class HomePageView extends StatefulWidget {
@@ -95,7 +96,8 @@ class _HomePageViewState extends State<HomePageView> {
               // 增加可点击区域
               const SizedBox(
                 height: 200,
-              )
+              ),
+              bannerAdView(),
             ],
           ),
         ),
@@ -256,6 +258,34 @@ class _HomePageViewState extends State<HomePageView> {
               ],
             ),
           );
+        });
+  }
+
+  Widget bannerAdView() {
+    final BannerAd bannerAd = BannerAd(
+      adUnitId: Constants.adUnitID,
+      size: AdSize.banner,
+      request: const AdRequest(),
+      listener: BannerAdListener(
+        onAdLoaded: (Ad ad) {
+          Logger().i('Ad loaded.');
+          homeLogicController.updateAdLoadStatus(true);
+        },
+        onAdFailedToLoad: (Ad ad, LoadAdError error) {
+          Logger().i('Ad load Failed.${error.message}');
+          homeLogicController.updateAdLoadStatus(false);
+          ad.dispose();
+        },
+      ),
+    );
+    bannerAd.load();
+    return GetBuilder<HomeLogicController>(
+        init: homeLogicController,
+        builder: (controller) {
+          if (controller.adLoadStatus.value == false) {
+            return Container();
+          }
+          return AdWidget(ad: bannerAd);
         });
   }
 }

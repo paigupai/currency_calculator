@@ -109,12 +109,11 @@ class SettingPageView extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
               ),
               clipBehavior: Clip.antiAlias,
-              child: Material(
-                child: Image.asset(
-                  'assets/app.png',
-                  width: 80,
-                  // height: 100,
-                ),
+              color: Colors.white,
+              child: Image.asset(
+                'assets/app.png',
+                width: 80,
+                // height: 100,
               ),
             ));
         break;

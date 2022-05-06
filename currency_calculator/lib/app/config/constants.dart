@@ -14,4 +14,5 @@ class Constants {
   static String appName = 'app_name'.tr;
   static const String appVersion = '0.9.0';
   static Locale locale = const Locale('en', 'US');
+  static const String adUnitID = 'ca-app-pub-3940256099942544/6300978111';
 }

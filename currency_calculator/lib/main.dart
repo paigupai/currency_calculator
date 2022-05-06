@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:currency_calculator/app/services/setting_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:logger/logger.dart';
 
 import 'app/config/constants.dart';
@@ -20,6 +21,7 @@ Future<void> initServices() async {
   Logger().i('starting services ...');
 
   ///初始化
+  MobileAds.instance.initialize();
   await HiveDBService.initDB();
   // 取出保存的设定
   final setting = await SettingService.getSetting();
