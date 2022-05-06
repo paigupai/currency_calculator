@@ -22,6 +22,7 @@ Future<void> initServices() async {
 
   ///初始化
   MobileAds.instance.initialize();
+  Constants.getPackageInfo();
   await HiveDBService.initDB();
   // 取出保存的设定
   final setting = await SettingService.getSetting();
