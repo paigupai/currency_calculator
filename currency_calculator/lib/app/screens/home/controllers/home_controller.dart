@@ -5,10 +5,8 @@ import 'package:currency_calculator/app/data/history.dart';
 import 'package:currency_calculator/app/services/exchange_rate_service.dart';
 import 'package:currency_calculator/app/services/hive_db_service.dart';
 import 'package:currency_calculator/app/services/rest_countries_service.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
 class HomeLogicController extends GetxController {
   var fromCountryData = CountryData().obs;

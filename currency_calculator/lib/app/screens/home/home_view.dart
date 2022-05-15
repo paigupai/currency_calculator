@@ -20,89 +20,127 @@ class HomePageView extends StatefulWidget {
 }
 
 class _HomePageViewState extends State<HomePageView> {
-  final HomeLogicController homeLogicController = Get.find();
+  late HomeLogicController homeLogicController;
+  late TextEditingController _textController;
+  late FocusNode _textFocusNode;
+  BannerAd? _bannerAd;
 
-  final _textController = TextEditingController();
+  @override
+  void initState() {
+    homeLogicController = Get.find();
+    _textController = TextEditingController();
+    _textFocusNode = FocusNode();
+    super.initState();
+  }
 
-  final _textFocusNode = FocusNode();
   @override
   void dispose() {
     _textController.dispose();
+    _bannerAd?.dispose();
     super.dispose();
   }
 
   @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: GestureDetector(
-        behavior: HitTestBehavior.translucent,
-        onTap: () {
-          // 触摸收起键盘
-          FocusScope.of(context).requestFocus(FocusNode());
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _bannerAd = BannerAd(
+      adUnitId: Constants.adUnitID,
+      size: AdSize.fullBanner,
+      request: const AdRequest(),
+      listener: BannerAdListener(
+        onAdLoaded: (Ad ad) {
+          Logger().i('Ad loaded.');
+          homeLogicController.updateAdLoadStatus(true);
         },
-        child: Container(
-          padding: const EdgeInsets.all(12.0),
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 20,
-              ),
-              fromCurrencyDescriptiveText(),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20),
-                child: Transform.rotate(
-                    angle: pi / 2,
-                    child: Ink(
-                      decoration: ShapeDecoration(
-                        color: Get.isDarkMode
-                            ? Colors.grey.shade800
-                            : Colors.white,
-                        shape: const CircleBorder(),
-                      ),
-                      child: IconButton(
-                        icon: const Icon(
-                          Icons.compare_arrows,
+        onAdFailedToLoad: (Ad ad, LoadAdError error) {
+          Logger().i('Ad load Failed.${error.message}');
+          homeLogicController.updateAdLoadStatus(false);
+          ad.dispose();
+        },
+      ),
+    )..load();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(children: [
+      SingleChildScrollView(
+        child: GestureDetector(
+          behavior: HitTestBehavior.translucent,
+          onTap: () {
+            // 触摸收起键盘
+            FocusScope.of(context).requestFocus(FocusNode());
+          },
+          child: Container(
+            padding: const EdgeInsets.all(12.0),
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 20,
+                ),
+                fromCurrencyDescriptiveText(),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  child: Transform.rotate(
+                      angle: pi / 2,
+                      child: Ink(
+                        decoration: ShapeDecoration(
+                          color: Get.isDarkMode
+                              ? Colors.grey.shade800
+                              : Colors.white,
+                          shape: const CircleBorder(),
                         ),
-                        iconSize: 30,
-                        onPressed: () async {
-                          await homeLogicController.exchangeFromAndTo();
-                        },
+                        child: IconButton(
+                          icon: const Icon(
+                            Icons.compare_arrows,
+                          ),
+                          iconSize: 30,
+                          onPressed: () async {
+                            await homeLogicController.exchangeFromAndTo();
+                          },
+                        ),
+                      )),
+                ),
+                toCurrencyDescriptiveText(),
+                Padding(
+                  padding:
+                      const EdgeInsets.only(right: 8.0, bottom: 0, top: 8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      const Icon(Icons.refresh),
+                      const SizedBox(
+                        width: 12,
                       ),
-                    )),
-              ),
-              toCurrencyDescriptiveText(),
-              Padding(
-                padding: const EdgeInsets.only(right: 8.0, bottom: 0, top: 8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    const Icon(Icons.refresh),
-                    const SizedBox(
-                      width: 12,
-                    ),
-                    Obx(() => Text(homeLogicController.updateTime.value)),
-                  ],
+                      Obx(() => Text(homeLogicController.updateTime.value)),
+                    ],
+                  ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Align(
-                  alignment: Alignment.centerRight,
-                  child: Obx(() {
-                    return Text(homeLogicController.toTextSubTitle.value);
-                  }),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: Obx(() {
+                      return Text(homeLogicController.toTextSubTitle.value);
+                    }),
+                  ),
                 ),
-              ),
-              // 增加可点击区域
-              const SizedBox(
-                height: 200,
-              ),
-              bannerAdView(),
-            ],
+                // 增加可点击区域
+                const SizedBox(
+                  height: 200,
+                ),
+              ],
+            ),
           ),
         ),
       ),
-    );
+      Align(
+          alignment: Alignment.bottomCenter,
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 20.0),
+            child: bannerAdView(),
+          )),
+    ]);
   }
 
   Widget fromCurrencyDescriptiveText() {
@@ -262,30 +300,19 @@ class _HomePageViewState extends State<HomePageView> {
   }
 
   Widget bannerAdView() {
-    final BannerAd bannerAd = BannerAd(
-      adUnitId: Constants.adUnitID,
-      size: AdSize.banner,
-      request: const AdRequest(),
-      listener: BannerAdListener(
-        onAdLoaded: (Ad ad) {
-          Logger().i('Ad loaded.');
-          homeLogicController.updateAdLoadStatus(true);
-        },
-        onAdFailedToLoad: (Ad ad, LoadAdError error) {
-          Logger().i('Ad load Failed.${error.message}');
-          homeLogicController.updateAdLoadStatus(false);
-          ad.dispose();
-        },
-      ),
-    );
-    bannerAd.load();
     return GetBuilder<HomeLogicController>(
         init: homeLogicController,
         builder: (controller) {
           if (controller.adLoadStatus.value == false) {
             return Container();
           }
-          return AdWidget(ad: bannerAd);
+          if (_bannerAd == null) {
+            return Container();
+          }
+          return SizedBox(
+              height: _bannerAd?.size.height.toDouble(),
+              width: double.infinity,
+              child: Center(child: AdWidget(ad: _bannerAd!)));
         });
   }
 }

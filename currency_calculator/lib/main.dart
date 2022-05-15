@@ -13,6 +13,7 @@ import 'app/screens/main/main_page.dart';
 import 'app/services/hive_db_service.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await initServices();
   runApp(const MyApp());
 }
