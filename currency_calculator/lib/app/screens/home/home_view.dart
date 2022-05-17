@@ -43,9 +43,11 @@ class _HomePageViewState extends State<HomePageView> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    final adSize =
+        AdSize(width: MediaQuery.of(context).size.width.toInt(), height: 60);
     _bannerAd = BannerAd(
       adUnitId: Constants.adUnitID,
-      size: AdSize.fullBanner,
+      size: adSize,
       request: const AdRequest(),
       listener: BannerAdListener(
         onAdLoaded: (Ad ad) {
@@ -83,22 +85,27 @@ class _HomePageViewState extends State<HomePageView> {
                   padding: const EdgeInsets.symmetric(vertical: 20),
                   child: Transform.rotate(
                       angle: pi / 2,
-                      child: Ink(
-                        decoration: ShapeDecoration(
-                          color: Get.isDarkMode
-                              ? Colors.grey.shade800
-                              : Colors.white,
-                          shape: const CircleBorder(),
-                        ),
-                        child: IconButton(
-                          icon: const Icon(
+                      child: ElevatedButton(
+                        child: const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Icon(
                             Icons.compare_arrows,
+                            size: 40,
                           ),
-                          iconSize: 30,
-                          onPressed: () async {
-                            await homeLogicController.exchangeFromAndTo();
-                          },
                         ),
+                        style: ElevatedButton.styleFrom(
+                          shape: const CircleBorder(
+                            side: BorderSide(
+                              color: Colors.transparent,
+                              style: BorderStyle.solid,
+                            ),
+                          ),
+                        ),
+                        // size: 30,
+                        // // iconSize: 30,
+                        onPressed: () {
+                          homeLogicController.exchangeFromAndTo();
+                        },
                       )),
                 ),
                 toCurrencyDescriptiveText(),
@@ -311,7 +318,7 @@ class _HomePageViewState extends State<HomePageView> {
           }
           return SizedBox(
               height: _bannerAd?.size.height.toDouble(),
-              width: double.infinity,
+              width: _bannerAd?.size.width.toDouble(),
               child: Center(child: AdWidget(ad: _bannerAd!)));
         });
   }
