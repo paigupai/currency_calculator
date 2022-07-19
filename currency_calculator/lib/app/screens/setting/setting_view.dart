@@ -1,4 +1,4 @@
-import 'package:currency_calculator/app/config/constants.dart';
+import 'package:currency_calculator/app/config/app_config.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -101,8 +101,8 @@ class SettingPageView extends StatelessWidget {
       case 2:
         showAboutDialog(
             context: context,
-            applicationName: Constants.appName,
-            applicationVersion: Constants.appVersion,
+            applicationName: AppConfig.getInstance().appName,
+            applicationVersion: AppConfig.getInstance().appVersion,
             applicationIcon: Card(
               elevation: 4.0,
               shape: RoundedRectangleBorder(

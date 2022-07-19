@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 
 // Colors
 class CustomColor {
@@ -12,15 +10,4 @@ class Constants {
   static const String frankfurterAPI = 'https://api.frankfurter.app/latest';
   // Get information about countries via a RESTful API.
   static const String restcountriesAPI = 'https://restcountries.com/v3/alpha/';
-  static String appName = 'app_name'.tr;
-  static String appVersion = '1.0.0';
-  static Locale locale = const Locale('en', 'US');
-  static const String adUnitID = 'ca-app-pub-3940256099942544/6300978111';
-
-  static void getPackageInfo() async {
-    PackageInfo packageInfo = await PackageInfo.fromPlatform();
-
-    appName = packageInfo.appName;
-    appVersion = packageInfo.version;
-  }
 }

@@ -4,6 +4,7 @@ import 'package:animated_flip_counter/animated_flip_counter.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:currency_calculator/app/common/common.dart';
 import 'package:currency_calculator/app/common/x_number_text_input_formatter.dart';
+import 'package:currency_calculator/app/config/app_config.dart';
 import 'package:currency_calculator/app/config/constants.dart';
 import 'package:currency_calculator/app/screens/home/controllers/home_controller.dart';
 import 'package:flutter/material.dart';
@@ -46,7 +47,7 @@ class _HomePageViewState extends State<HomePageView> {
     final adSize =
         AdSize(width: MediaQuery.of(context).size.width.toInt(), height: 60);
     _bannerAd = BannerAd(
-      adUnitId: Constants.adUnitID,
+      adUnitId: AppConfig.getInstance().gmsAdUnitID(),
       size: adSize,
       request: const AdRequest(),
       listener: BannerAdListener(
@@ -101,8 +102,6 @@ class _HomePageViewState extends State<HomePageView> {
                             ),
                           ),
                         ),
-                        // size: 30,
-                        // // iconSize: 30,
                         onPressed: () {
                           homeLogicController.exchangeFromAndTo();
                         },
