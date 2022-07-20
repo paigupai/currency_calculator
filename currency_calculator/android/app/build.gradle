@@ -90,7 +90,7 @@ android {
         }
         production {
             dimension "default"
-            resValue "string", "app_name", "為替レート計算-stub(" + flutterVersionName + ")"
+            resValue "string", "app_name", "為替レート計算"
             resValue "string", "gms_application_id", keystoreProperties['gms_application_id']
         }
     }
