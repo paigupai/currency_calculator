@@ -46,5 +46,7 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
-# key.properties git から外す
-/android/key.properties
+# releaseを git から外す
+/release
+# release用の設定を git から外す
+/lib/env_config.dart_prod
