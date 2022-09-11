@@ -14,8 +14,6 @@ class HomeLogicController extends GetxController {
   var fromText = ''.obs;
   var toTextSubTitle = ''.obs;
   var updateTime = '----.--.--'.obs;
-  // BannerAd load Status
-  var adLoadStatus = false.obs;
   ExchangeRateService exchangeRateService = ExchangeRateService();
   RestCountriesService restCountriesService = RestCountriesService();
 
@@ -151,10 +149,5 @@ class HomeLogicController extends GetxController {
         rateText: toTextSubTitle.value,
         updateTime: updateTime.value);
     HiveDBService.saveHistory(history);
-  }
-
-  void updateAdLoadStatus(bool status) {
-    adLoadStatus.value = status;
-    update();
   }
 }

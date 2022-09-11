@@ -1,9 +1,9 @@
+import 'package:currency_calculator/app/common/banner_ad/bottom_banner_ad_view.dart';
 import 'package:currency_calculator/app/config/app_config.dart';
+import 'package:currency_calculator/app/screens/setting/controllers/setting_controllers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import 'controllers/setting_controllers.dart';
 
 class SettingPageView extends StatelessWidget {
   SettingPageView({Key? key}) : super(key: key);
@@ -13,25 +13,27 @@ class SettingPageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final settingList = ['language'.tr, 'theme'.tr, 'about_app'.tr];
-    return Padding(
-      padding: const EdgeInsets.all(12.0),
-      child: ListView.separated(
-        itemBuilder: (BuildContext context, int index) {
-          return InkWell(
-            onTap: () {
-              onTap(context, index);
-            },
-            child: ListTile(
-              title: Text(settingList[index]),
-            ),
-          );
-        },
-        separatorBuilder: (BuildContext context, int index) {
-          return const Divider(
-            height: 1,
-          );
-        },
-        itemCount: settingList.length,
+    return BottomBannerAdView(
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: ListView.separated(
+          itemBuilder: (BuildContext context, int index) {
+            return InkWell(
+              onTap: () {
+                onTap(context, index);
+              },
+              child: ListTile(
+                title: Text(settingList[index]),
+              ),
+            );
+          },
+          separatorBuilder: (BuildContext context, int index) {
+            return const Divider(
+              height: 1,
+            );
+          },
+          itemCount: settingList.length,
+        ),
       ),
     );
   }

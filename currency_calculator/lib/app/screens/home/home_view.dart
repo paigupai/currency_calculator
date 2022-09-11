@@ -2,15 +2,14 @@ import 'dart:math';
 
 import 'package:animated_flip_counter/animated_flip_counter.dart';
 import 'package:country_code_picker/country_code_picker.dart';
+import 'package:currency_calculator/app/common/banner_ad/bottom_banner_ad_view.dart';
 import 'package:currency_calculator/app/common/common.dart';
 import 'package:currency_calculator/app/common/x_number_text_input_formatter.dart';
-import 'package:currency_calculator/app/config/app_config.dart';
 import 'package:currency_calculator/app/config/constants.dart';
 import 'package:currency_calculator/app/screens/home/controllers/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:logger/logger.dart';
 
 class HomePageView extends StatefulWidget {
@@ -24,7 +23,6 @@ class _HomePageViewState extends State<HomePageView> {
   late HomeLogicController homeLogicController;
   late TextEditingController _textController;
   late FocusNode _textFocusNode;
-  BannerAd? _bannerAd;
 
   @override
   void initState() {
@@ -37,37 +35,13 @@ class _HomePageViewState extends State<HomePageView> {
   @override
   void dispose() {
     _textController.dispose();
-    _bannerAd?.dispose();
     super.dispose();
   }
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    final adSize =
-        AdSize(width: MediaQuery.of(context).size.width.toInt(), height: 60);
-    _bannerAd = BannerAd(
-      adUnitId: AppConfig.getInstance().gmsAdUnitID(),
-      size: adSize,
-      request: const AdRequest(),
-      listener: BannerAdListener(
-        onAdLoaded: (Ad ad) {
-          Logger().i('Ad loaded.');
-          homeLogicController.updateAdLoadStatus(true);
-        },
-        onAdFailedToLoad: (Ad ad, LoadAdError error) {
-          Logger().i('Ad load Failed.${error.message}');
-          homeLogicController.updateAdLoadStatus(false);
-          ad.dispose();
-        },
-      ),
-    )..load();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Stack(children: [
-      SingleChildScrollView(
+    return BottomBannerAdView(
+      child: SingleChildScrollView(
         child: GestureDetector(
           behavior: HitTestBehavior.translucent,
           onTap: () {
@@ -140,13 +114,7 @@ class _HomePageViewState extends State<HomePageView> {
           ),
         ),
       ),
-      Align(
-          alignment: Alignment.bottomCenter,
-          child: Padding(
-            padding: const EdgeInsets.only(bottom: 20.0),
-            child: bannerAdView(),
-          )),
-    ]);
+    );
   }
 
   Widget fromCurrencyDescriptiveText() {
@@ -252,73 +220,59 @@ class _HomePageViewState extends State<HomePageView> {
         init: homeLogicController,
         builder: (controller) {
           return Card(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    CountryCodePicker(
-                      onChanged: (country) {
-                        Logger().i('countryCode onChanged ${country.name}');
-                        controller.changeToCountryCode(country);
-                      },
-                      onInit: (country) {
-                        Logger().i('countryCode onChanged ${country!.name}');
-                        controller.changeToCountryCode(country,
-                            fetchMoney: false);
-                      },
-                      initialSelection:
-                          controller.toCountryData.value.initialCountryCode,
-                      flagWidth: 50,
-                      hideMainText: true,
-                      showCountryOnly: true,
-                      showOnlyCountryWhenClosed: true,
-                      favorite: controller
-                              .toCountryData.value.favoriteCountryCodeList ??
-                          [],
-                      countryFilter:
-                          controller.toCountryData.value.countryFilter,
-                    ),
-                    const Icon(
-                      Icons.keyboard_arrow_down,
-                      size: 20,
-                    ),
-                  ],
-                ),
-                const Spacer(),
-                AnimatedFlipCounter(
-                  duration: const Duration(milliseconds: 500),
-                  prefix: controller.toCountryData.value.symbol ?? '',
-                  value: controller.toCountryData.value.money ?? 0,
-                  fractionDigits: Common.getFractionDigits(
-                      controller.toCountryData.value.money ?? 0),
-                  textStyle: const TextStyle(
-                      fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(
-                  width: 8,
-                )
-              ],
+            child: Container(
+              padding: const EdgeInsets.symmetric(vertical: 10.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      CountryCodePicker(
+                        onChanged: (country) {
+                          Logger().i('countryCode onChanged ${country.name}');
+                          controller.changeToCountryCode(country);
+                        },
+                        onInit: (country) {
+                          Logger().i('countryCode onChanged ${country!.name}');
+                          controller.changeToCountryCode(country,
+                              fetchMoney: false);
+                        },
+                        initialSelection:
+                            controller.toCountryData.value.initialCountryCode,
+                        flagWidth: 50,
+                        hideMainText: true,
+                        showCountryOnly: true,
+                        showOnlyCountryWhenClosed: true,
+                        favorite: controller
+                                .toCountryData.value.favoriteCountryCodeList ??
+                            [],
+                        countryFilter:
+                            controller.toCountryData.value.countryFilter,
+                      ),
+                      const Icon(
+                        Icons.keyboard_arrow_down,
+                        size: 20,
+                      ),
+                    ],
+                  ),
+                  const Spacer(),
+                  AnimatedFlipCounter(
+                    duration: const Duration(milliseconds: 500),
+                    prefix: controller.toCountryData.value.symbol ?? '',
+                    value: controller.toCountryData.value.money ?? 0,
+                    fractionDigits: Common.getFractionDigits(
+                        controller.toCountryData.value.money ?? 0),
+                    textStyle: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(
+                    width: 8,
+                  )
+                ],
+              ),
             ),
           );
-        });
-  }
-
-  Widget bannerAdView() {
-    return GetBuilder<HomeLogicController>(
-        init: homeLogicController,
-        builder: (controller) {
-          if (controller.adLoadStatus.value == false) {
-            return Container();
-          }
-          if (_bannerAd == null) {
-            return Container();
-          }
-          return SizedBox(
-              height: _bannerAd?.size.height.toDouble(),
-              width: _bannerAd?.size.width.toDouble(),
-              child: Center(child: AdWidget(ad: _bannerAd!)));
         });
   }
 }
