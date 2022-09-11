@@ -27,7 +27,7 @@ class AppConfig {
     // 設定取得
     var setting = await SettingService.getSetting();
     if (setting != null) {
-      if (setting.language != null) {
+      if (setting.locale != null) {
         _instance.locale = setting.locale!;
       } else {
         _instance.locale = _instance.getShowLocale();

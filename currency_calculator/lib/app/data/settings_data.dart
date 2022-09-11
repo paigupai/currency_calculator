@@ -2,18 +2,26 @@ import 'package:flutter/material.dart';
 
 class SettingsData {
   SettingsData({
-    this.language,
-    this.countryCode,
+    @required this.language,
+    @required this.countryCode,
     this.locale,
   });
   String? language;
   String? countryCode;
   Locale? locale;
 
-  factory SettingsData.fromJson(Map<String, dynamic> json) => SettingsData(
-        language: json['language'] as String?,
-        countryCode: json['countryCode'] as String?,
-      );
+  SettingsData.fromJson(Map<String, dynamic> json) {
+    if (json['language'] != null) {
+      language = json['language'];
+    }
+    if (json['countryCode'] != null) {
+      countryCode = json['countryCode'];
+    }
+    if (language != null && countryCode != null) {
+      locale = Locale(language!, countryCode!);
+    }
+  }
+
   Map<String, dynamic> toJson() => <String, dynamic>{
         'language': language,
         'countryCode': countryCode,
