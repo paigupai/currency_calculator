@@ -31,7 +31,7 @@ fi
 
 ANDROID_APP_BUNDLE_NAME="app-${FLAVOR}-${GIT_TAG_NAME}.aab"
 
-AAB_OUTPUT_PATH=~/Release/${GIT_TAG_NAME}/${ANDROID_APP_BUNDLE_NAME}
+AAB_OUTPUT_PATH=~/release/${GIT_TAG_NAME}/${ANDROID_APP_BUNDLE_NAME}
 
 if test -e "${AAB_OUTPUT_PATH}" ; then
     mkdir -p "${AAB_OUTPUT_PATH}"
@@ -42,7 +42,7 @@ fi
 version=($(grep "version:" pubspec.yaml | awk '{print $2}'))
 TARGET_APP_VERSION="${version[0]}"
 
-git checkout "${GIT_TAG_NAME}"
+git checkout -f "${GIT_TAG_NAME}"
 log_info "Generate AAB Start"
 log_info "flutter clean"
 log_info flutter clean

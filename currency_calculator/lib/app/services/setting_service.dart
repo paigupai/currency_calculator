@@ -11,13 +11,11 @@ class SettingService {
       final locale = window.locale;
       switch (locale.languageCode) {
         case 'zh':
-          return locale;
         case 'ja':
-          return locale;
         case 'en':
           return locale;
         default:
-          return locale;
+          return const Locale('en', 'US');
       }
     } else {
       switch (setting?.language) {
@@ -42,10 +40,6 @@ class SettingService {
 
   static Future<SettingsData?> getSetting() async {
     final setting = await HiveDBService.getSetting();
-    if (setting == null) {
-      return null;
-    }
-    setting.locale = await getLocale();
     return setting;
   }
 }

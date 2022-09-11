@@ -27,7 +27,7 @@ apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 // keystoreを読み取るために必要
 def keystoreProperties = new Properties()
-def keystorePropertiesFile = rootProject.file('key.properties')
+def keystorePropertiesFile = rootProject.file('../release/key.properties')
 if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 }
@@ -102,4 +102,22 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
+
+tasks.whenTaskAdded { task ->
+    if (task.name.startsWith("compileFlutterBuildProduction")) {
+        println "Production task added: " + task.name
+       task.dependsOn changeConfigForProduction
+    }
+}
+
+task changeConfigForProduction {
+  doFirst {
+      println "changeConfigForProduction"
+      copy {
+          from '../../lib/env_config.dart_prod'
+          into '../../lib'
+          rename 'env_config.dart_prod', 'env_config.dart'
+      }
+  }
 }

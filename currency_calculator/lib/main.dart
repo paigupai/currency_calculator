@@ -19,8 +19,7 @@ Future<void> initServices() async {
 
   ///初始化
   MobileAds.instance.initialize();
-  // production 起動
-  await AppConfig.init(ConfigType.prod);
+  await AppConfig.init();
 
   Logger().i('All services started...');
 }

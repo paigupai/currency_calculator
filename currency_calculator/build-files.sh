@@ -28,7 +28,7 @@ if [[ $# != 3 ]]; then
 fi
 
 log_info "資材作成開始"
-git checkout "${GIT_TAG_NAME}"
+git checkout -f "${GIT_TAG_NAME}"
 log_info flutter pub get
 ./build-android-app-bundle.sh "${FLAVOR}" "${GIT_TAG_NAME}" "${APP_VERSION}"
 # TODO: iOSの資材作成
