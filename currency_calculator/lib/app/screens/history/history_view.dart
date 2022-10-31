@@ -41,8 +41,9 @@ class HistoryPageView extends StatelessWidget {
                   const SizedBox(
                     height: 16,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  // 数字が長すぎるを防ぐ
+                  Wrap(
+                    alignment: WrapAlignment.center,
                     children: [
                       Image.asset(
                         fromCountryData.onSelectedCountry!.flagUri!,
@@ -84,7 +85,7 @@ class HistoryPageView extends StatelessWidget {
                   // 最後の項目に広告を被せないため
                   historyController.historyList.length == (index + 1)
                       ? const SizedBox(
-                          height: 60,
+                          height: 80,
                         )
                       : Container()
                 ],
