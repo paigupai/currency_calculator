@@ -23,20 +23,30 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: 1.0.4
-  flex_color_scheme: 5.0.1
-  flutter_lints: 1.0.4
-  get: 4.6.1
+  # icon拡張
+  # cupertino_icons: 1.0.4
+  flex_color_scheme: 5.1.0
+  # flutter lint
+  flutter_lints: 2.0.1
+  # getX
+  get: 4.6.5
+  # カスタムbar
   curved_navigation_bar: 1.0.3
-  google_fonts: 2.3.2
+  google_fonts: 3.0.1
   logger: 1.1.0
+  # 国家選択Picker　DISCONTINUED！
   country_code_picker: 2.0.2
+  # Http client
   dio: 4.0.6
-  animated_flip_counter: 0.2.4
-  hive: 2.1.0
+  # 数字のアニメーション
+  animated_flip_counter: 0.2.5
+  # DB
+  hive: 2.2.3
   hive_flutter: 1.1.0
-  google_mobile_ads: 1.2.0
-  package_info_plus: 1.4.2
+  # google_mobile_ads 広告
+  google_mobile_ads: 2.2.0
+  # アプリケーションパッケージの情報
+  package_info_plus: 3.0.1
 
 dev_dependencies:
   flutter_test:

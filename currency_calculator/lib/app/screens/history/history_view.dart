@@ -81,6 +81,12 @@ class HistoryPageView extends StatelessWidget {
                   const Divider(
                     height: 1,
                   ),
+                  // 最後の項目に広告を被せないため
+                  historyController.historyList.length == (index + 1)
+                      ? const SizedBox(
+                          height: 60,
+                        )
+                      : Container()
                 ],
               ),
             );

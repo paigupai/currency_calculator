@@ -61,13 +61,6 @@ class _HomePageViewState extends State<HomePageView> {
                   child: Transform.rotate(
                       angle: pi / 2,
                       child: ElevatedButton(
-                        child: const Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Icon(
-                            Icons.compare_arrows,
-                            size: 40,
-                          ),
-                        ),
                         style: ElevatedButton.styleFrom(
                           shape: const CircleBorder(
                             side: BorderSide(
@@ -79,6 +72,13 @@ class _HomePageViewState extends State<HomePageView> {
                         onPressed: () {
                           homeLogicController.exchangeFromAndTo();
                         },
+                        child: const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Icon(
+                            Icons.compare_arrows,
+                            size: 40,
+                          ),
+                        ),
                       )),
                 ),
                 toCurrencyDescriptiveText(),
@@ -164,7 +164,8 @@ class _HomePageViewState extends State<HomePageView> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        SizedBox(
+                        Container(
+                            padding: const EdgeInsets.all(5.0),
                             width: 150,
                             child: TextField(
                               controller: _textController,
@@ -172,6 +173,8 @@ class _HomePageViewState extends State<HomePageView> {
                               textAlign: TextAlign.end,
                               decoration: InputDecoration(
                                   border: InputBorder.none,
+                                  // 入力ボックスの内余白
+                                  contentPadding: const EdgeInsets.all(5),
                                   hintText:
                                       '${controller.fromCountryData.value.symbol ?? ''}${controller.fromCountryData.value.money ?? '0.0'}'),
                               keyboardType: TextInputType.number,

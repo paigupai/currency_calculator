@@ -13,14 +13,16 @@ class BannerAdView extends StatefulWidget {
 }
 
 class _BannerAdViewState extends State<BannerAdView> {
+  late BannerAdController controller;
+  late BannerAd bannerAd;
+
   @override
-  Widget build(BuildContext context) {
-    final controller = Get.put(BannerAdController());
-    final adSize =
-        AdSize(width: MediaQuery.of(context).size.width.toInt(), height: 60);
-    BannerAd? _bannerAd = BannerAd(
+  void initState() {
+    super.initState();
+    controller = Get.put(BannerAdController());
+    bannerAd = BannerAd(
       adUnitId: AppConfig.getInstance().gmsAdUnitID(),
-      size: adSize,
+      size: AdSize.fullBanner,
       request: const AdRequest(),
       listener: BannerAdListener(
         onAdLoaded: (Ad ad) {
@@ -34,7 +36,10 @@ class _BannerAdViewState extends State<BannerAdView> {
         },
       ),
     )..load();
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return GetBuilder<BannerAdController>(
         init: controller,
         builder: (controller) {
@@ -42,9 +47,9 @@ class _BannerAdViewState extends State<BannerAdView> {
             return Container();
           }
           return SizedBox(
-              height: _bannerAd.size.height.toDouble(),
-              width: _bannerAd.size.width.toDouble(),
-              child: Center(child: AdWidget(ad: _bannerAd)));
+              height: bannerAd.size.height.toDouble(),
+              width: bannerAd.size.width.toDouble(),
+              child: Center(child: AdWidget(ad: bannerAd)));
         });
   }
 }
