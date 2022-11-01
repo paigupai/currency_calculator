@@ -11,6 +11,7 @@ set -o pipefail
 # 1. 引数からflavorを取得
 # 2. タグ名からgit tagを取得
 #　3. pubspec.yamlからapp versionを取得
+# zsh permission deniedが発生する場合、chmod u+x build-android-app-bundle.sh
 
 function log_info() {
     echo "$(date +"%Y-%m-%d %H:%M:%S") - INFO - $*"
