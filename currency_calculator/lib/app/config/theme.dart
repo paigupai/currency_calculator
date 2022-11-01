@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 ThemeData themeData({bool isDark = false}) {
   if (isDark) {
     return FlexThemeData.dark(
-      scheme: FlexScheme.bahamaBlue,
+      scheme: FlexScheme.aquaBlue,
       surfaceMode: FlexSurfaceMode.highScaffoldLowSurface,
       blendLevel: 15,
       appBarStyle: FlexAppBarStyle.background,
@@ -22,7 +22,7 @@ ThemeData themeData({bool isDark = false}) {
     );
   }
   return FlexThemeData.light(
-    scheme: FlexScheme.bahamaBlue,
+    scheme: FlexScheme.aquaBlue,
     surfaceMode: FlexSurfaceMode.highScaffoldLowSurface,
     blendLevel: 20,
     appBarOpacity: 0.95,

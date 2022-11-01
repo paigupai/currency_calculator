@@ -49,8 +49,13 @@ class SettingPageView extends StatelessWidget {
               children: [
                 for (int i = 0; i < _controller.languageList.length; i++)
                   ListTile(
-                    title: Text(
-                      _controller.languageList[i],
+                    title: GestureDetector(
+                      child: Text(
+                        _controller.languageList[i],
+                      ),
+                      onTap: () {
+                        _controller.selectedRadio.value = i;
+                      },
                     ),
                     leading: Radio(
                         value: i,
