@@ -109,6 +109,10 @@ tasks.whenTaskAdded { task ->
         println "Production task added: " + task.name
        task.dependsOn changeConfigForProduction
     }
+    if (task.name.startsWith("compileFlutterBuildStubDebug")){
+        println "Production task added: " + task.name
+        task.dependsOn changeConfigForDebug
+    }
 }
 
 task changeConfigForProduction {
@@ -120,4 +124,15 @@ task changeConfigForProduction {
           rename 'env_config.dart_prod', 'env_config.dart'
       }
   }
+}
+
+task changeConfigForDebug {
+    doFirst {
+        println "changeConfigForDebug"
+        copy {
+            from '../../lib/env_config.dart_stub'
+            into '../../lib'
+            rename 'env_config.dart_stub', 'env_config.dart'
+        }
+    }
 }

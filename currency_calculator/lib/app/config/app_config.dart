@@ -92,4 +92,11 @@ class AppConfig {
         return const Locale('en', 'US');
     }
   }
+
+  bool isStubFlavor() {
+    if (configType == ConfigType.prod) {
+      return false;
+    }
+    return true;
+  }
 }

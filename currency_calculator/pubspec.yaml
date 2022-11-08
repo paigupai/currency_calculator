@@ -47,6 +47,8 @@ dependencies:
   google_mobile_ads: 2.2.0
   # アプリケーションパッケージの情報
   package_info_plus: 3.0.1
+  # 折れ線グラフのため
+  bruno: 3.1.0
 
 dev_dependencies:
   flutter_test:

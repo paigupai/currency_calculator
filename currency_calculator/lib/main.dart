@@ -30,13 +30,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      theme: themeData(),
-      darkTheme: themeData(isDark: true),
+      theme: AppColor.themeData(),
+      darkTheme: AppColor.themeData(isDark: true),
       themeMode: ThemeMode.system,
       translations: Messages(),
       locale: AppConfig.getInstance().locale,
       fallbackLocale: const Locale('en', 'US'),
-      debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: AppConfig.getInstance().isStubFlavor(),
       home: const MainPage(),
     );
   }

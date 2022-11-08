@@ -7,6 +7,7 @@ import 'package:currency_calculator/app/common/common.dart';
 import 'package:currency_calculator/app/common/x_number_text_input_formatter.dart';
 import 'package:currency_calculator/app/config/constants.dart';
 import 'package:currency_calculator/app/screens/home/controllers/home_controller.dart';
+import 'package:currency_calculator/app/screens/home/exchange_historical_rates_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -105,6 +106,8 @@ class _HomePageViewState extends State<HomePageView> {
                     }),
                   ),
                 ),
+                //　為替レート推移図表
+                const ExchangeHistoricalRatesChart(),
                 // 增加可点击区域
                 const SizedBox(
                   height: 200,

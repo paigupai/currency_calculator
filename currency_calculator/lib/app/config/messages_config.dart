@@ -13,6 +13,7 @@ class Messages extends Translations {
           'confirm': '确认',
           'cancel': '取消',
           'theme': '主题',
+          'view_chart': '查看图表',
         },
         'zh_TW': {
           'home': '主頁',
@@ -24,6 +25,7 @@ class Messages extends Translations {
           'confirm': '確認',
           'cancel': '取消',
           'theme': '主題',
+          'view_chart': '查看圖表',
         },
         'ja_JP': {
           'home': 'ホーム',
@@ -35,6 +37,7 @@ class Messages extends Translations {
           'confirm': '確認',
           'cancel': 'キャンセル',
           'theme': 'テーマ',
+          'view_chart': 'チャートを見る',
         },
         'en_US': {
           'home': 'Home',
@@ -46,6 +49,7 @@ class Messages extends Translations {
           'confirm': 'Confirm',
           'cancel': 'Cancel',
           'theme': 'Theme',
+          'view_chart': 'View chart',
         }
       };
 }
