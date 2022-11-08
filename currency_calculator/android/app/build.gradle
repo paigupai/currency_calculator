@@ -77,6 +77,9 @@ android {
             minifyEnabled true
             shrinkResources true
             signingConfig signingConfigs.release
+            ndk {
+                debugSymbolLevel 'SYMBOL_TABLE'
+            }
         }
     }
     flavorDimensions "default"
