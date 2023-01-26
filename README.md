@@ -10,3 +10,5 @@ currency_calculator
 
 2.  [project]/currency_calculator/release/にkeystoreとkey.propertiesを入れる  
 3.  リリース用のlib/env_config.dart_prodを作る
+
+[Google Play](https://play.google.com/store/apps/details?id=com.paigu.currencyConverter)
