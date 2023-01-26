@@ -1,6 +1,8 @@
 # currency_calculator
 currency_calculator
 
+[getx](https://github.com/jonataslaw/getx)検証のため作ったapp  
+
 [Build an release Android app](https://docs.flutter.dev/deployment/android)
 1. keystore作りる
 ```
