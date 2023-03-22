@@ -1,4 +1,4 @@
-import 'package:country_code_picker/country_code.dart';
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:currency_calculator/app/config/country_and_exchange_rate_config.dart';
 import 'package:currency_calculator/app/data/country_data.dart';
 import 'package:currency_calculator/app/data/exchange_historical_rates.dart';

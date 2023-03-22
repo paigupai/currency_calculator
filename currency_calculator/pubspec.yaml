@@ -25,30 +25,30 @@ dependencies:
     sdk: flutter
   # icon拡張
   # cupertino_icons: 1.0.4
-  flex_color_scheme: 5.1.0
+  flex_color_scheme: ^6.1.2
   # flutter lint
-  flutter_lints: 2.0.1
+  flutter_lints: ^2.0.1
   # getX
   get: 4.6.5
   # カスタムbar
   curved_navigation_bar: 1.0.3
-  google_fonts: 3.0.1
-  logger: 1.1.0
+  google_fonts: ^4.0.3
+  logger: ^1.3.0
   # 国家選択Picker　DISCONTINUED！
-  country_code_picker: 2.0.2
+  country_code_picker: ^3.0.0
   # Http client
-  dio: 4.0.6
+  dio: ^5.0.3
   # 数字のアニメーション
-  animated_flip_counter: 0.2.5
+  animated_flip_counter: ^0.2.5
   # DB
-  hive: 2.2.3
-  hive_flutter: 1.1.0
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
   # google_mobile_ads 広告
-  google_mobile_ads: 2.2.0
+  google_mobile_ads: ^2.3.0
   # アプリケーションパッケージの情報
-  package_info_plus: 3.0.1
+  package_info_plus: ^3.0.3
   # 折れ線グラフのため
-  bruno: 3.1.0
+  bruno: ^3.3.0
 
 dev_dependencies:
   flutter_test:
